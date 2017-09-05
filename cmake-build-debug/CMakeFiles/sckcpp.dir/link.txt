@@ -1,0 +1,2 @@
+/usr/bin/ar qc libsckcpp.a  CMakeFiles/sckcpp.dir/src/sckcpp/library.cpp.o
+/usr/bin/ranlib libsckcpp.a
