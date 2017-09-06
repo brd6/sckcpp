@@ -84,17 +84,26 @@ namespace sckcpp
       throw SocketException("Unable to set re use addr");
   }
 
-  int Socket::send(const void *buf, size_t len, int flags)
+  ssize_t Socket::send(const void *buf, size_t len, int flags)
   {
-    if (::send(mFd, buf, len, flags) < 0)
-      throw SocketException("send data failed");
+    return ::send(mFd, buf, len, flags);
   }
 
-  int Socket::sendTo(const void *buf, size_t len, int flags,
-		     const struct sockaddr *dest_addr, socklen_t addrlen)
+  ssize_t Socket::sendTo(const void *buf, size_t len, int flags,
+			 const struct sockaddr *dest_addr, socklen_t addrlen)
   {
-    if (::sendto(mFd, buf, len, flags, dest_addr, addrlen) < 0)
-      throw SocketException("Send data failed");
+    return ::sendto(mFd, buf, len, flags, dest_addr, addrlen);
+  }
+
+  ssize_t Socket::receive(void *buf, size_t len, int flags)
+  {
+    return ::recv(mFd, buf, len, flags);
+  }
+
+  ssize_t Socket::receiveFrom(void *buf, size_t len, int flags,
+			      struct sockaddr *src_addr, socklen_t *addrlen)
+  {
+    return ::recvfrom(mFd, buf, len, flags, src_addr, addrlen);
   }
 
 }

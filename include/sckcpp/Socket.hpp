@@ -36,6 +36,7 @@ namespace sckcpp
 
    public:
     Socket(int domain, int type, int protocol);
+
     virtual ~Socket();
 
     /**
@@ -83,13 +84,13 @@ namespace sckcpp
     void enableReuseAddr();
 
     /**
-     *
+     * 
      * @param buf
      * @param len
      * @param flags
      * @return
      */
-    int send(const void *buf, size_t len, int flags);
+    ssize_t send(const void *buf, size_t len, int flags);
 
     /**
      *
@@ -100,11 +101,35 @@ namespace sckcpp
      * @param addrlen
      * @return
      */
-    int sendTo(const void *buf,
-	       size_t len,
-	       int flags, 
-	       const struct sockaddr *dest_addr,
-	       socklen_t addrlen);
+    ssize_t sendTo(const void *buf,
+		   size_t len,
+		   int flags,
+		   const struct sockaddr *dest_addr,
+		   socklen_t addrlen);
+
+    /**
+     *
+     * @param buf
+     * @param len
+     * @param flags
+     * @return
+     */
+    ssize_t receive(void *buf, size_t len, int flags);
+
+    /**
+     *
+     * @param buf
+     * @param len
+     * @param flags
+     * @param src_addr
+     * @param addrlen
+     * @return
+     */
+    ssize_t receiveFrom(void *buf,
+			size_t len,
+			int flags,
+			struct sockaddr *src_addr,
+			socklen_t *addrlen);
   };
 }
 
