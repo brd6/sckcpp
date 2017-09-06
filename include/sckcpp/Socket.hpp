@@ -82,6 +82,29 @@ namespace sckcpp
      */
     void enableReuseAddr();
 
+    /**
+     *
+     * @param buf
+     * @param len
+     * @param flags
+     * @return
+     */
+    int send(const void *buf, size_t len, int flags);
+
+    /**
+     *
+     * @param buf
+     * @param len
+     * @param flags
+     * @param dest_addr
+     * @param addrlen
+     * @return
+     */
+    int sendTo(const void *buf,
+	       size_t len,
+	       int flags, 
+	       const struct sockaddr *dest_addr,
+	       socklen_t addrlen);
   };
 }
 
