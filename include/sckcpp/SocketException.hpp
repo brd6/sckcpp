@@ -3,8 +3,8 @@
 //
 
 
-#ifndef _SocketException_H_
-# define _SocketException_H_
+#ifndef _SOCKETEXCEPTION_H_
+# define _SOCKETEXCEPTION_H_
 
 #include <string>
 #include <exception>
@@ -22,11 +22,11 @@ namespace sckcpp
 
     /**
      * get the SocketException's message
-     * @return
+     * @return const char*
      */
     const char* what() const throw() override { return mMsg.data(); }
 
   };
 }
 
-#endif /* !_SocketException_H_ */
+#endif /* !_SOCKETEXCEPTION_H_ */

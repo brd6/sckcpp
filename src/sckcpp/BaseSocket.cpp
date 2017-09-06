@@ -1,5 +1,8 @@
 //
-// Created by brd6 on 06/09/17.
+// Created by bongol_b on 06/09/17.
 //
 
+namespace sckcpp
+{
 
+}

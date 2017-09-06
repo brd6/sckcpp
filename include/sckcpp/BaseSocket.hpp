@@ -4,8 +4,8 @@
 
 #include <bits/socket.h>
 
-#ifndef BaseSocket_H_
-# define _BaseSocket_H_
+#ifndef _BASESOCKET_H_
+# define _BASESOCKET_H_
 
 namespace sckcpp
 {
@@ -36,6 +36,10 @@ namespace sckcpp
     BaseSocket(BaseSocket const &) = delete;
     BaseSocket &operator=(BaseSocket const &) = delete;
 
+    /**
+     * Get the socket file descriptor
+     * @return int
+     */
     int getFd() const;
     void close();
 
@@ -43,4 +47,4 @@ namespace sckcpp
 }
 
 
-#endif /* !_BaseSocket_H_ */
+#endif /* !_BASESOCKET_H_ */
