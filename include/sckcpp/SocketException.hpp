@@ -22,7 +22,7 @@ namespace sckcpp
 
     /**
      * get the SocketException's message
-     * @return const char*
+     * @return
      */
     const char* what() const throw() override { return mMsg.data(); }
 
