@@ -11,8 +11,8 @@ namespace sckcpp
 {
   enum SocketType
   {
-    TCP,
-    UDP
+    TCP = SOCK_STREAM,
+    UDP = SOCK_DGRAM
   };
 
   enum SocketDomain
@@ -23,23 +23,21 @@ namespace sckcpp
     LOCAL = AF_LOCAL
   };
 
-  enum Network
-  {
-    
-  };
-
   class BaseSocket
   {
    private:
-    int mSockFd;
+    int mfd;
 
    protected:
-    BaseSocket() = default;
+    BaseSocket(int domain, int type, int protocol);
 
    public:
     virtual ~BaseSocket() = default;
     BaseSocket(BaseSocket const &) = delete;
     BaseSocket &operator=(BaseSocket const &) = delete;
+
+    int getFd() const;
+    void close();
 
   };
 }

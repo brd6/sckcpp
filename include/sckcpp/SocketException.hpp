@@ -20,6 +20,10 @@ namespace sckcpp
    public:
     explicit SocketException(std::string const &msg) : mMsg(msg) {}
 
+    /**
+     * get the SocketException's message
+     * @return
+     */
     const char* what() const throw() override { return mMsg.data(); }
 
   };
