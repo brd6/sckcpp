@@ -72,4 +72,16 @@ namespace sckcpp
     return clientSocket;
   }
 
+  void Socket::enableReuseAddr()
+  {
+    int optVal;
+    int ret;
+
+    optVal = 1;
+    ret = setsockopt(mFd, SOL_SOCKET, SO_REUSEADDR, &optVal, sizeof(optVal));
+
+    if (ret < 0)
+      throw SocketException("Unable to set re use addr");
+  }
+
 }

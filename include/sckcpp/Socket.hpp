@@ -37,8 +37,6 @@ namespace sckcpp
    public:
     Socket(int domain, int type, int protocol);
     virtual ~Socket();
-    Socket(Socket const &) = delete;
-    Socket &operator=(Socket const &) = delete;
 
     /**
      * Get the socket file descriptor
@@ -78,6 +76,11 @@ namespace sckcpp
      * @return
      */
     Socket accept(struct sockaddr *addr, socklen_t *addrlen);
+
+    /**
+     * Enable the possibility to reuse the socket address after server closing
+     */
+    void enableReuseAddr();
 
   };
 }
