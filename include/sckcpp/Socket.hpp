@@ -24,7 +24,6 @@ namespace sckcpp
       int mBacklog;
 
     public:
-
       /**
        * Socket initialisation
        * @param sockAddress
@@ -51,6 +50,13 @@ namespace sckcpp
        * @return Socket
        */
       Socket accept();
+
+      /**
+       * Connect the socket to the addr specified
+       * @param sockAddress
+       */
+      void connect(SockAddress const &sockAddress);
+
 
       SockAddress const &getSockAddress() const;
 

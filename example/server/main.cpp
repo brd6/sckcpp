@@ -14,9 +14,12 @@ int tcp_main(int ac, char const **av)
   std::cout << "TCP socket created: " << tcpSocket.getSockAddress() << std::endl;
   std::cout << "Waiting for connection..." << std::endl;
 
-  auto clientSocket = tcpSocket.accept();
+  while (1)
+  {
+    auto clientSocket = tcpSocket.accept();
 
-  std::cout << "New client: " << clientSocket.getSockAddress() << std::endl;
+    std::cout << "New client: " << clientSocket.getSockAddress() << std::endl;
+  }
 
   return EXIT_SUCCESS;
 }

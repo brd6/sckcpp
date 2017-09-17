@@ -3,8 +3,6 @@
 //
 
 #include <sckcpp/Socket.hpp>
-#include <memory.h>
-#include <iostream>
 
 namespace sckcpp
 {
@@ -21,6 +19,7 @@ namespace sckcpp
       mSockAddress.setSockaddrIn(SocketDomain::IP);
 
       bind(mSockAddress, sizeof(sockaddr_in));
+
       initializeAddressPortIfNeeded();
     }
 
@@ -74,6 +73,14 @@ namespace sckcpp
     SockAddress const &Socket::getSockAddress() const
     {
       return mSockAddress;
+    }
+
+    void Socket::connect(SockAddress const &sockAddress)
+    {
+      if (mCommunicationType == SocketCommunicationType::UNKNOWN)
+        mCommunicationType = SocketCommunicationType::CLIENT;
+
+      BaseSocket::connect(sockAddress, sizeof(sockaddr_in));
     }
 
   }

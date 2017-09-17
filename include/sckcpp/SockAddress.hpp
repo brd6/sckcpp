@@ -22,8 +22,8 @@ namespace sckcpp
     sockaddr_in mSockaddrIn;
 
   public:
-    SockAddress(std::string const &host, int port = sckcpp::DEFAULT_PORT);
-    explicit SockAddress(int port);
+    SockAddress(std::string const &host, int port = sckcpp::DEFAULT_PORT, SocketDomain socketDomain = DEFAULT_SOCKET_DOMAIN);
+    SockAddress(int port);
     SockAddress();
     ~SockAddress() = default;
 

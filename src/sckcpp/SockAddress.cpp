@@ -10,10 +10,11 @@
 namespace sckcpp
 {
 
-  SockAddress::SockAddress(std::string const &host, int port) :
+  SockAddress::SockAddress(std::string const &host, int port, SocketDomain socketDomain) :
     mHost(host),
     mPort(port)
   {
+    setSockaddrIn(socketDomain);
   }
 
   SockAddress::SockAddress(int port) :
