@@ -7,7 +7,7 @@
 
 int tcp_main(int ac, char const **av)
 {
-  sckcpp::tcp::Socket tcpSocket(sckcpp::SockAddress("localhost", 42));
+  sckcpp::tcp::Socket tcpSocket;
 
   return EXIT_SUCCESS;
 }

@@ -30,6 +30,7 @@ namespace sckcpp
 //      Socket accept();
 
     private:
+      void initializeAddressPortIfNeeded();
 
     };
   }

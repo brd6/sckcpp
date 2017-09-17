@@ -35,11 +35,16 @@ namespace sckcpp
     sockaddr_in const &getSockaddrIn() const;
     void setSockaddrIn(SocketDomain = DEFAULT_SOCKET_DOMAIN);
 
-    sockaddr_in const &getSockAddrIn() const;
+    operator sockaddr*() const
+    {
+      return (sockaddr *)&mSockaddrIn;
+    }
 
   private:
     in_addr resolveHostname();
   };
+
+  std::ostream &operator<<(std::ostream &out, const SockAddress &obj);
 }
 
 #endif /* !_SOCKADDRESS_H_ */

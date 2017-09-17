@@ -40,14 +40,14 @@ namespace sckcpp
      * @param addr
      * @param addrlen
      */
-    void bind(const struct sockaddr *addr, socklen_t addrlen);
+    void bind(const sockaddr *addr, socklen_t addrlen);
 
     /**
      * Connect the socket to the addr specified
      * @param addr
      * @param addrlen
      */
-    void connect(const struct sockaddr *addr, socklen_t addrlen);
+    void connect(const sockaddr *addr, socklen_t addrlen);
 
     /**
      * Define the maximum pending connections for the socket
@@ -61,7 +61,7 @@ namespace sckcpp
      * @param addrlen
      * @return
      */
-    BaseSocket accept(struct sockaddr *addr, socklen_t *addrlen);
+    BaseSocket accept(sockaddr *addr, socklen_t *addrlen);
 
     /**
      * Enable the possibility to reuse the socket address after server closing

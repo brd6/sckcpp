@@ -5,6 +5,7 @@
 #include <sckcpp/SockAddress.hpp>
 #include <cstring>
 #include <sckcpp/SocketException.hpp>
+#include <iostream>
 
 namespace sckcpp
 {
@@ -18,7 +19,6 @@ namespace sckcpp
   SockAddress::SockAddress(int port) :
       SockAddress(sckcpp::DEFAULT_HOST, port)
   {
-
   }
 
   SockAddress::SockAddress() :
@@ -69,8 +69,10 @@ namespace sckcpp
     mPort = port;
   }
 
-  sockaddr_in const &SockAddress::getSockAddrIn() const
+  std::ostream &operator<<(std::ostream &os, SockAddress const &obj)
   {
-    return mSockaddrIn;
+    os << obj.getHost() << std::string(":") << std::to_string(obj.getPort());
+
+    return os;
   }
 }
