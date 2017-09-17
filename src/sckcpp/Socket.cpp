@@ -3,7 +3,6 @@
 //
 
 #include <sckcpp/Socket.hpp>
-#include <iostream>
 
 namespace sckcpp
 {
@@ -11,8 +10,12 @@ namespace sckcpp
   {
     Socket::Socket(SockAddress const &sockAddress, int backlog) :
       BaseSocket(SocketDomain::IP, SocketType::TCP, 0),
-      mSockAddress(sockAddress)
+      mSockAddress(sockAddress),
+      mCommunicationType(SocketCommunicationType::UNKNOWN),
+      mBacklog(backlog)
     {
+      enableReuseAddr();
+
       mSockAddress.setSockaddrIn(SocketDomain::IP);
 
       bind(mSockAddress, sizeof(sockaddr_in));
@@ -29,7 +32,8 @@ namespace sckcpp
     {
     }
 
-    Socket::~Socket()
+    Socket::Socket(BaseSocket socket) :
+        BaseSocket(socket)
     {
 
     }
@@ -47,9 +51,26 @@ namespace sckcpp
         mSockAddress.setPort(ntohs(sin.sin_port));
     }
 
-//    Socket Socket::accept()
-//    {
-//      return Socket();
-//    }
+    Socket Socket::accept()
+    {
+      if (mCommunicationType == SocketCommunicationType::UNKNOWN)
+      {
+        listen(mBacklog);
+        mCommunicationType = SocketCommunicationType::SERVER;
+      }
+
+      sockaddr addr;
+      socklen_t addrlen;
+
+      Socket clientSocket = BaseSocket::accept(&addr, &addrlen);
+
+      return clientSocket;
+    }
+
+    SockAddress const &Socket::getSockAddress() const
+    {
+      return mSockAddress;
+    }
+
   }
 }

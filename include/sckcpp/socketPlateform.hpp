@@ -34,4 +34,11 @@ enum SocketDomain
   LOCAL = AF_LOCAL
 };
 
+enum SocketCommunicationType
+{
+  SERVER,
+  CLIENT,
+  UNKNOWN
+};
+
 #endif /* !_SOCKETPLATEFORM_H_ */
