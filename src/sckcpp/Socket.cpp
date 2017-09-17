@@ -12,19 +12,18 @@ namespace sckcpp
       BaseSocket(SocketDomain::IP, SocketType::TCP, 0),
       mSockAddress(sockAddress)
     {
-      bind();
-    }
-
-    Socket::Socket(SockAddress const &sockAddress) :
-      mSockAddress(sockAddress)
-    {
 
     }
 
     Socket::Socket(int port, int backlog) :
-      mSockAddress("", port)
+      Socket(SockAddress(port), sckcpp::DEFAULT_BACKLOG)
     {
 
+    }
+
+    Socket::Socket() :
+      Socket(SockAddress(), sckcpp::DEFAULT_BACKLOG)
+    {
     }
 
     Socket::~Socket()
@@ -32,9 +31,9 @@ namespace sckcpp
 
     }
 
-    Socket Socket::accept()
-    {
-      return Socket();
-    }
+//    Socket Socket::accept()
+//    {
+//      return Socket();
+//    }
   }
 }

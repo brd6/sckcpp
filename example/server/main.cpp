@@ -3,11 +3,11 @@
 //
 
 #include <cstdlib>
-#include "TcpServer.hpp"
+#include <sckcpp/Socket.hpp>
 
 int tcp_main(int ac, char const **av)
 {
-  TcpServer server;
+  sckcpp::tcp::Socket tcpSocket(sckcpp::SockAddress("localhost", 42));
 
   return EXIT_SUCCESS;
 }

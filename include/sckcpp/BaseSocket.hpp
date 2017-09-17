@@ -2,18 +2,7 @@
 // Created by brd6 on 06/09/17.
 //
 
-#if _WIN32
-
-#include <winsock2.h>
-#pragma comment(lib, "wsock32.lib")
-
-#else
-
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <fcntl.h>
-
-#endif
+#include <sckcpp/socketPlateform.hpp>
 
 #ifndef _BASESOCKET_H_
 # define _BASESOCKET_H_

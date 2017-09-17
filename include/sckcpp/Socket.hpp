@@ -11,21 +11,7 @@
 
 namespace sckcpp
 {
-  enum SocketType
-  {
-    TCP = SOCK_STREAM,
-    UDP = SOCK_DGRAM
-  };
-
-  enum SocketDomain
-  {
-    IP = AF_INET,
-    IPV6 = AF_INET6,
-    LOCAL_UNIX = AF_UNIX,
-    LOCAL = AF_LOCAL
-  };
-
-  using static int DEFAULT_BACKLOG = 5;
+  const int DEFAULT_BACKLOG = 5;
 
   namespace tcp
   {
@@ -36,12 +22,12 @@ namespace sckcpp
       SockAddress mSockAddress;
 
     public:
-      Socket(SockAddress const &sockAddress, int backlog = DEFAULT_BACKLOG);
-      Socket(SockAddress const &sockAddress);
-      Socket(int port = SockAddress::DEFAULT_PORT, int backlog = DEFAULT_BACKLOG);
+      Socket(SockAddress const &sockAddress, int backlog = sckcpp::DEFAULT_BACKLOG);
+      Socket(int port, int backlog = sckcpp::DEFAULT_BACKLOG);
+      Socket();
       ~Socket();
 
-      Socket accept();
+//      Socket accept();
 
     private:
 
@@ -52,11 +38,9 @@ namespace sckcpp
   {
     class Socket
     {
-    public:
-      Socket(std::string host, int port);
-      ~Socket();
-
-      bool
+//    public:
+//      Socket(std::string host, int port);
+//      ~Socket();
     };
   }
 }
