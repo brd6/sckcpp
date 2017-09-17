@@ -17,6 +17,9 @@ set(SOURCE_FILES ${SOURCE_FILES} ${INCLUDE_FILES})
 # Lib configuration
 add_library(${PROJECT_NAME} ${SOURCE_FILES})
 
+add_subdirectory(example/server)
+#add_subdirectory(example/client)
+
 # Install lib
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 

@@ -1,11 +1,12 @@
 //
-// Created by brd6 on 06/09/17.
+// Created by bongol_b on 17/09/17.
 //
 
-#include <bits/socket.h>
+#ifndef _SOCKET_H_
+#define _SOCKET_H_
 
-#ifndef _BASESOCKET_H_
-# define _BASESOCKET_H_
+#include <string>
+#include <sckcpp/BaseSocket.hpp>
 
 namespace sckcpp
 {
@@ -23,115 +24,42 @@ namespace sckcpp
     LOCAL = AF_LOCAL
   };
 
-  class Socket
+  using int DEFAULT_BACKLOG = 5;
+  using int DEFAULT_PORT = 0;
+
+  namespace tcp
   {
-   public:
-    const int INVALID_SOCK_FD = -1;
+    class Socket :
+      private BaseSocket
+    {
+    private:
+      std::string mHost;
+      int mPort;
 
-   private:
-    int mFd;
+    public:
+      Socket(std::string const &host, int port, int backlog = DEFAULT_BACKLOG);
+      Socket(std::string const &host, int port);
+      Socket(int port = DEFAULT_PORT, int backlog = DEFAULT_BACKLOG);
+      ~Socket();
 
-   protected:
-    Socket();
+      Socket accept();
 
-   public:
-    Socket(int domain, int type, int protocol);
+    private:
 
-    virtual ~Socket();
+    };
+  }
 
-    /**
-     * Get the socket file descriptor
-     * @return
-     */
-    int getFd() const;
+  namespace udp
+  {
+    class Socket
+    {
+    public:
+      Socket(std::string host, int port);
+      ~Socket();
 
-    /**
-     * Close the socket
-     */
-    void close();
-
-    /**
-     * assign an address to the socket
-     * @param addr
-     * @param addrlen
-     */
-    void bind(const struct sockaddr *addr, socklen_t addrlen);
-
-    /**
-     * Connect the socket to the addr specified
-     * @param addr
-     * @param addrlen
-     */
-    void connect(const struct sockaddr *addr, socklen_t addrlen);
-
-    /**
-     * Define the maximum pending connections for the socket
-     * @param backlog
-     */
-    void listen(int backlog);
-
-    /**
-     * Accept a new connection on the socket and return the client socket when he's connected
-     * @param addr
-     * @param addrlen
-     * @return
-     */
-    Socket accept(struct sockaddr *addr, socklen_t *addrlen);
-
-    /**
-     * Enable the possibility to reuse the socket address after server closing
-     */
-    void enableReuseAddr();
-
-    /**
-     * 
-     * @param buf
-     * @param len
-     * @param flags
-     * @return
-     */
-    ssize_t send(const void *buf, size_t len, int flags);
-
-    /**
-     *
-     * @param buf
-     * @param len
-     * @param flags
-     * @param dest_addr
-     * @param addrlen
-     * @return
-     */
-    ssize_t sendTo(const void *buf,
-		   size_t len,
-		   int flags,
-		   const struct sockaddr *dest_addr,
-		   socklen_t addrlen);
-
-    /**
-     *
-     * @param buf
-     * @param len
-     * @param flags
-     * @return
-     */
-    ssize_t receive(void *buf, size_t len, int flags);
-
-    /**
-     *
-     * @param buf
-     * @param len
-     * @param flags
-     * @param src_addr
-     * @param addrlen
-     * @return
-     */
-    ssize_t receiveFrom(void *buf,
-			size_t len,
-			int flags,
-			struct sockaddr *src_addr,
-			socklen_t *addrlen);
-  };
+      bool
+    };
+  }
 }
 
-
-#endif /* !_BASESOCKET_H_ */
+#endif /* !_SOCKET_H_ */

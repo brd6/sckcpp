@@ -5,7 +5,7 @@
 #ifndef _SCKCPP_H_
 #define _SCKCPP_H_
 
-#include <sckcpp/Socket.hpp>
+#include <sckcpp/BaseSocket.hpp>
 #include <sckcpp/SocketException.hpp>
 
 #endif /* !_SCKCPP_H_ */
