@@ -8,6 +8,8 @@
 #include <string>
 #include <sckcpp/BaseSocket.hpp>
 #include <sckcpp/SockAddress.hpp>
+#include <sckcpp/Buffer.hpp>
+#include <iostream>
 
 namespace sckcpp
 {
@@ -57,8 +59,33 @@ namespace sckcpp
        */
       void connect(SockAddress const &sockAddress);
 
-
+      /**
+       * Return the SockAddress of this socket
+       * @return
+       */
       SockAddress const &getSockAddress() const;
+
+      /**
+       * Send data to the socket
+       * @param buffer
+       * @param flags
+       * @return
+       */
+      ssize_t send(Buffer const &buffer, int flags = 0);
+
+      /**
+       * Receive data from sender's socket
+       * @param buf
+       * @param len
+       * @param flags
+       * @return
+       */
+      ssize_t receive(Buffer &buffer, int flags = 0);
+
+      /**
+       * Close the socket
+       */
+      void close() override ;
 
     private:
       Socket(BaseSocket socket);

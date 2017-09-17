@@ -3,6 +3,7 @@
 //
 
 #include <sckcpp/Socket.hpp>
+#include <zconf.h>
 
 namespace sckcpp
 {
@@ -83,5 +84,19 @@ namespace sckcpp
       BaseSocket::connect(sockAddress, sizeof(sockaddr_in));
     }
 
+    ssize_t Socket::send(Buffer const &buffer, int flags)
+    {
+      return BaseSocket::send(buffer.data, buffer.len, flags);
+    }
+
+    void Socket::close()
+    {
+      BaseSocket::close();
+    }
+
+    ssize_t Socket::receive(Buffer &buffer, int flags)
+    {
+      return BaseSocket::receive(buffer.data, buffer.len, flags);
+    }
   }
 }

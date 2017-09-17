@@ -22,7 +22,7 @@ namespace sckcpp
     BaseSocket(int domain, int type, int protocol);
 
   public:
-    virtual ~BaseSocket();
+    virtual ~BaseSocket() = default;
 
     /**
      * Get the socket file descriptor
@@ -33,7 +33,7 @@ namespace sckcpp
     /**
      * Close the socket
      */
-    void close();
+    virtual void close();
 
     /**
      * assign an address to the socket

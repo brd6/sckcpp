@@ -7,6 +7,7 @@
 #include <sckcpp/BaseSocket.hpp>
 #include <sckcpp/SocketException.hpp>
 #include <cstring>
+#include <iostream>
 
 namespace sckcpp
 {
@@ -23,11 +24,6 @@ namespace sckcpp
     if (mFd < 0)
       throw SocketException(std::string("Unable to initialize the socket: ") +
                                 std::strerror(errno));
-  }
-
-  BaseSocket::~BaseSocket()
-  {
-    close();
   }
 
   int BaseSocket::getFd() const
