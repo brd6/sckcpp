@@ -1,5 +1,5 @@
 //
-// Created by bongol_b on 17/09/17.
+// Created by brd6 on 17/09/17.
 //
 
 #ifndef _SOCKET_H_
@@ -7,6 +7,7 @@
 
 #include <string>
 #include <sckcpp/BaseSocket.hpp>
+#include <sckcpp/SockAddress.hpp>
 
 namespace sckcpp
 {
@@ -24,8 +25,7 @@ namespace sckcpp
     LOCAL = AF_LOCAL
   };
 
-  using int DEFAULT_BACKLOG = 5;
-  using int DEFAULT_PORT = 0;
+  using static int DEFAULT_BACKLOG = 5;
 
   namespace tcp
   {
@@ -33,13 +33,12 @@ namespace sckcpp
       private BaseSocket
     {
     private:
-      std::string mHost;
-      int mPort;
+      SockAddress mSockAddress;
 
     public:
-      Socket(std::string const &host, int port, int backlog = DEFAULT_BACKLOG);
-      Socket(std::string const &host, int port);
-      Socket(int port = DEFAULT_PORT, int backlog = DEFAULT_BACKLOG);
+      Socket(SockAddress const &sockAddress, int backlog = DEFAULT_BACKLOG);
+      Socket(SockAddress const &sockAddress);
+      Socket(int port = SockAddress::DEFAULT_PORT, int backlog = DEFAULT_BACKLOG);
       ~Socket();
 
       Socket accept();
