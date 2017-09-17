@@ -12,7 +12,7 @@ namespace sckcpp
 {
   const int DEFAULT_PORT = 0;
   const SocketDomain DEFAULT_SOCKET_DOMAIN = SocketDomain::IP;
-  const std::string DEFAULT_HOST = "localhost";
+  const std::string DEFAULT_HOST = "";
 
   class SockAddress
   {
@@ -41,7 +41,7 @@ namespace sckcpp
     }
 
   private:
-    in_addr resolveHostname();
+    in_addr_t resolveHostname();
   };
 
   std::ostream &operator<<(std::ostream &out, const SockAddress &obj);

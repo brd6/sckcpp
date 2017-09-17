@@ -17,7 +17,7 @@ namespace sckcpp
    private:
     int mFd;
 
-   protected:
+  public:
     BaseSocket();
     BaseSocket(int domain, int type, int protocol);
 

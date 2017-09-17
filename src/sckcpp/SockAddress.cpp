@@ -47,21 +47,27 @@ namespace sckcpp
     std::memset(&mSockaddrIn, 0, sizeof(mSockaddrIn));
 
     mSockaddrIn.sin_family = socketDomain;
-    mSockaddrIn.sin_addr.s_addr = resolveHostname().s_addr;
-    mSockaddrIn.sin_port = htons(mPort);
+    mSockaddrIn.sin_addr.s_addr = resolveHostname();
+    mSockaddrIn.sin_port = htons(4244);
+
+//    mSockaddrIn.sin_family = socketDomain;
+//    mSockaddrIn.sin_addr.s_addr = htonl(INADDR_ANY);
+//    mSockaddrIn.sin_port = htons(4244);
   }
 
-  in_addr SockAddress::resolveHostname()
+  in_addr_t SockAddress::resolveHostname()
   {
+    if (mHost.empty())
+      return htonl(INADDR_ANY);
+
     hostent *host;
-    in_addr **addr_list;
 
     host = gethostbyname(mHost.c_str());
 
     if (host == nullptr)
       throw SocketException("Unable to resolve the hostname '" + mHost + "'");
 
-    return *((in_addr *) host->h_addr_list[0]);
+    return (*((in_addr *) host->h_addr_list[0])).s_addr;
   }
 
   void SockAddress::setPort(int port)

@@ -3,6 +3,7 @@
 //
 
 #include <sckcpp/Socket.hpp>
+#include <memory.h>
 
 namespace sckcpp
 {
