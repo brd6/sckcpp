@@ -47,15 +47,14 @@ namespace sckcpp
     std::memset(&mSockaddrIn, 0, sizeof(mSockaddrIn));
 
     mSockaddrIn.sin_family = socketDomain;
-    mSockaddrIn.sin_addr.s_addr = resolveHostname();
-    mSockaddrIn.sin_port = htons(4244);
+    mSockaddrIn.sin_addr.s_addr = resolveSockAddrInSAddr();
+    mSockaddrIn.sin_port = htons(mPort);
 
-//    mSockaddrIn.sin_family = socketDomain;
-//    mSockaddrIn.sin_addr.s_addr = htonl(INADDR_ANY);
-//    mSockaddrIn.sin_port = htons(4244);
+    if (mHost.empty())
+      updateAddressInfo(mSockaddrIn);
   }
 
-  in_addr_t SockAddress::resolveHostname()
+  in_addr_t SockAddress::resolveSockAddrInSAddr()
   {
     if (mHost.empty())
       return htonl(INADDR_ANY);
@@ -73,6 +72,26 @@ namespace sckcpp
   void SockAddress::setPort(int port)
   {
     mPort = port;
+  }
+
+  void SockAddress::setSockaddrIn(sockaddr_in const &sockaddrIn)
+  {
+    std::memcpy(&mSockaddrIn, &sockaddrIn, sizeof(sockaddrIn));
+
+    updateAddressInfo(mSockaddrIn);
+  }
+
+  void SockAddress::updateAddressInfo(sockaddr_in const &sockaddrIn)
+  {
+    mHost = inet_ntoa(((sockaddr_in *)&sockaddrIn)->sin_addr);
+
+    if (mPort <= 0)
+      mPort = sockaddrIn.sin_port;
+  }
+
+  void SockAddress::setHost(std::string const &host)
+  {
+    mHost = host;
   }
 
   std::ostream &operator<<(std::ostream &os, SockAddress const &obj)

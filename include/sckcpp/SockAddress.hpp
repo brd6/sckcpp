@@ -5,8 +5,8 @@
 #ifndef _SOCKADDRESS_H_
 #define _SOCKADDRESS_H_
 
-#include <sckcpp/socketPlateform.hpp>
 #include <string>
+#include <sckcpp/socketPlateform.hpp>
 
 namespace sckcpp
 {
@@ -28,12 +28,14 @@ namespace sckcpp
     ~SockAddress() = default;
 
     std::string const &getHost() const;
+    void setHost(std::string const &host);
 
     int getPort() const;
     void setPort(int port);
 
     sockaddr_in const &getSockaddrIn() const;
     void setSockaddrIn(SocketDomain = DEFAULT_SOCKET_DOMAIN);
+    void setSockaddrIn(sockaddr_in const &sockaddrIn);
 
     operator sockaddr*() const
     {
@@ -41,7 +43,9 @@ namespace sckcpp
     }
 
   private:
-    in_addr_t resolveHostname();
+    in_addr_t resolveSockAddrInSAddr();
+    void updateAddressInfo(sockaddr_in const &sockaddrIn);
+
   };
 
   std::ostream &operator<<(std::ostream &out, const SockAddress &obj);

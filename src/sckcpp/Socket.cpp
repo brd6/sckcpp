@@ -4,6 +4,7 @@
 
 #include <sckcpp/Socket.hpp>
 #include <memory.h>
+#include <iostream>
 
 namespace sckcpp
 {
@@ -54,16 +55,18 @@ namespace sckcpp
 
     Socket Socket::accept()
     {
+      sockaddr addr;
+      socklen_t addrlen;
+
       if (mCommunicationType == SocketCommunicationType::UNKNOWN)
       {
         listen(mBacklog);
         mCommunicationType = SocketCommunicationType::SERVER;
       }
 
-      sockaddr addr;
-      socklen_t addrlen;
-
       Socket clientSocket = BaseSocket::accept(&addr, &addrlen);
+      struct sockaddr_in *sockaddrIn = (struct sockaddr_in*)&addr;
+      clientSocket.mSockAddress.setSockaddrIn(*sockaddrIn);
 
       return clientSocket;
     }
