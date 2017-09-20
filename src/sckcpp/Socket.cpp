@@ -53,7 +53,7 @@ namespace sckcpp
         mSockAddress.setPort(ntohs(sin.sin_port));
     }
 
-    Socket Socket::accept()
+    void Socket::accept(Socket &clientSocket)
     {
       sockaddr addr{};
       socklen_t addrlen;
@@ -64,11 +64,12 @@ namespace sckcpp
         mCommunicationType = SocketCommunicationType::SERVER;
       }
 
-      Socket clientSocket = BaseSocket::accept(&addr, &addrlen);
+      clientSocket.mFd = ::accept(getFd(), &addr, &addrlen);
+
+      std::cout << "clientSocketFD: " << clientSocket.mFd << std::endl;
+
       auto *sockaddrIn = (sockaddr_in*)&addr;
       clientSocket.mSockAddress.setSockaddrIn(*sockaddrIn);
-
-      return clientSocket;
     }
 
     SockAddress const &Socket::getSockAddress() const
@@ -91,6 +92,8 @@ namespace sckcpp
 
     void Socket::close()
     {
+      std::cout << "Socket::close" << std::endl;
+
       BaseSocket::close();
     }
 

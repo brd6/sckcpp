@@ -33,6 +33,8 @@ namespace sckcpp
 
   void BaseSocket::close()
   {
+    std::cout << "BaseSocket::close" << std::endl;
+
     if (mFd == INVALID_SOCK_FD)
       return;
 
@@ -58,16 +60,12 @@ namespace sckcpp
       throw SocketException(std::string("listen setting failed: ") + std::strerror(errno));
   }
 
-  BaseSocket BaseSocket::accept(sockaddr *addr, socklen_t *addrlen)
+  void BaseSocket::accept(BaseSocket &clientSocket, sockaddr *addr, socklen_t *addrlen)
   {
-    BaseSocket clientSocket;
-
     clientSocket.mFd = ::accept(mFd, addr, addrlen);
 
     if (clientSocket.mFd < 0)
       throw SocketException(std::string("accept failed: ") + std::strerror(errno));
-
-    return clientSocket;
   }
 
   void BaseSocket::enableReuseAddr()

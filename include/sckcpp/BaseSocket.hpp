@@ -3,6 +3,7 @@
 //
 
 #include <sckcpp/socketPlateform.hpp>
+#include <iostream>
 
 #ifndef _BASESOCKET_H_
 # define _BASESOCKET_H_
@@ -14,7 +15,7 @@ namespace sckcpp
    public:
     const int INVALID_SOCK_FD = -1;
 
-   private:
+   protected:
     int mFd;
 
    protected:
@@ -22,7 +23,10 @@ namespace sckcpp
     BaseSocket(int domain, int type, int protocol);
 
   public:
-    virtual ~BaseSocket() = default;
+    virtual ~BaseSocket()
+    {
+      std::cout << "BaseSocket::dtr" << std::endl;
+    }
 
     /**
      * Get the socket file descriptor
@@ -57,11 +61,12 @@ namespace sckcpp
 
     /**
      * Accept a new connection on the socket and return the client socket when he's connected
+     * @aparam socket
      * @param addr
      * @param addrlen
      * @return
      */
-    BaseSocket accept(sockaddr *addr, socklen_t *addrlen);
+    void accept(BaseSocket &clientSocket, sockaddr *addr, socklen_t *addrlen);
 
     /**
      * Enable the possibility to reuse the socket address after server closing

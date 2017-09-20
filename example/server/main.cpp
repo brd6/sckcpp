@@ -2,6 +2,8 @@
 // Created by brd6 on 17/09/17.
 //
 
+#include <unistd.h>
+
 #include <cstdlib>
 #include <sckcpp/Socket.hpp>
 #include <iostream>
@@ -14,31 +16,35 @@ int tcp_main(int ac, char const **av)
   std::cout << "TCP socket created: " << tcpSocket.getSockAddress() << std::endl;
   std::cout << "Waiting for connection..." << std::endl;
 
-  while (1)
-  {
-    auto clientSocket = tcpSocket.accept();
+  sckcpp::tcp::Socket clientSocket;
 
-    std::string msg("Hello world!\n");
-    sckcpp::Buffer buffer;
+  tcpSocket.accept(clientSocket);
 
-    buffer.data = (void *) msg.c_str();
-    buffer.len = msg.size();
+  sckcpp::Buffer bufferReceive;
 
-    std::cout << clientSocket.send(buffer) << std::endl;
+  bufferReceive.data = malloc(255);
+  bufferReceive.len = 254;
 
-    std::cout << "New client: " << clientSocket.getSockAddress() << std::endl;
+//  while (true)
+//  {
+//    std::string msg("Hello world!\n");
+//    sckcpp::Buffer buffer;
+//
+//    buffer.data = (void *) msg.c_str();
+//    buffer.len = msg.size();
+//
+//    std::cout << clientSocket.send(buffer) << std::endl;
+//
+//    std::cout << "New client: " << clientSocket.getSockAddress() << std::endl;
 
-    sckcpp::Buffer bufferReceive;
+//  std::cout << "read: " << read(clientSocket.getFd(), bufferReceive.data, bufferReceive.len) << std::endl;
+//
+    std::cout << clientSocket.receive(bufferReceive) << std::endl;
 
-    bufferReceive.data = malloc(255);
-    bufferReceive.len = 254;
+    std::cout << "Receive: '" << (char *)bufferReceive.data << "'" << std::endl;
 
-    std::cout << tcpSocket.receive(bufferReceive) << std::endl;
-
-    std::cout << "Receive: " << (char *)bufferReceive.data << std::endl;
-
-    break;
-  }
+//    break;
+//  }
 
   return EXIT_SUCCESS;
 }

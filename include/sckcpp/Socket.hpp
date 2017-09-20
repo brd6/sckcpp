@@ -45,13 +45,16 @@ namespace sckcpp
        */
       Socket();
 
-      ~Socket() = default;
+      ~Socket()
+      {
+	std::cout << "Socket::dtr" << std::endl;
+      }
 
       /**
        * Accept a new connection on the socket and return the client socket when he's connected
        * @return Socket
        */
-      Socket accept();
+      void accept(Socket &clientSocket);
 
       /**
        * Connect the socket to the addr specified
@@ -87,8 +90,10 @@ namespace sckcpp
        */
       void close() override ;
 
+      int getFd() const { return mFd; }
+
     private:
-      Socket(BaseSocket socket);
+      explicit Socket(BaseSocket socket);
       void initializeAddressPortIfNeeded();
 
     };

@@ -10,7 +10,9 @@ namespace sckcpp
   struct Buffer
   {
     void *data;
-    size_t len;
+    size_t len{};
+
+    explicit Buffer(void *data = nullptr, size_t len = 0) : data(data), len(len) {}
   };
 }
 
