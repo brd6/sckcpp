@@ -45,10 +45,7 @@ namespace sckcpp
        */
       Socket();
 
-      ~Socket()
-      {
-	std::cout << "Socket::dtr" << std::endl;
-      }
+      ~Socket() = default;
 
       /**
        * Accept a new connection on the socket and return the client socket when he's connected
@@ -89,8 +86,6 @@ namespace sckcpp
        * Close the socket
        */
       void close() override ;
-
-      int getFd() const { return mFd; }
 
     private:
       explicit Socket(BaseSocket socket);

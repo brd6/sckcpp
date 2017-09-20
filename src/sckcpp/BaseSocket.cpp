@@ -33,8 +33,6 @@ namespace sckcpp
 
   void BaseSocket::close()
   {
-    std::cout << "BaseSocket::close" << std::endl;
-
     if (mFd == INVALID_SOCK_FD)
       return;
 

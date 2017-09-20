@@ -23,10 +23,7 @@ namespace sckcpp
     BaseSocket(int domain, int type, int protocol);
 
   public:
-    virtual ~BaseSocket()
-    {
-      std::cout << "BaseSocket::dtr" << std::endl;
-    }
+    virtual ~BaseSocket() = default;
 
     /**
      * Get the socket file descriptor

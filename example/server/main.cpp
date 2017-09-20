@@ -20,31 +20,24 @@ int tcp_main(int ac, char const **av)
 
   tcpSocket.accept(clientSocket);
 
+  std::cout << "New client: " << clientSocket.getSockAddress() << std::endl;
+
   sckcpp::Buffer bufferReceive;
 
   bufferReceive.data = malloc(255);
   bufferReceive.len = 254;
 
-//  while (true)
-//  {
-//    std::string msg("Hello world!\n");
-//    sckcpp::Buffer buffer;
-//
-//    buffer.data = (void *) msg.c_str();
-//    buffer.len = msg.size();
-//
-//    std::cout << clientSocket.send(buffer) << std::endl;
-//
-//    std::cout << "New client: " << clientSocket.getSockAddress() << std::endl;
+  std::string msg("Hello world!\n");
+  sckcpp::Buffer buffer;
 
-//  std::cout << "read: " << read(clientSocket.getFd(), bufferReceive.data, bufferReceive.len) << std::endl;
-//
-    std::cout << clientSocket.receive(bufferReceive) << std::endl;
+  buffer.data = (void *) msg.c_str();
+  buffer.len = msg.size();
 
-    std::cout << "Receive: '" << (char *)bufferReceive.data << "'" << std::endl;
+  std::cout << clientSocket.send(buffer) << std::endl;
 
-//    break;
-//  }
+  std::cout << clientSocket.receive(bufferReceive) << std::endl;
+
+  std::cout << "Receive: '" << (char *)bufferReceive.data << "'" << std::endl;
 
   return EXIT_SUCCESS;
 }
