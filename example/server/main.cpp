@@ -9,7 +9,7 @@
 #include <iostream>
 #include <memory.h>
 
-int tcp_main(int ac, char const **av)
+int tcp_server_main(int ac, char const **av)
 {
   sckcpp::tcp::Socket tcpSocket(sckcpp::SockAddress(4242));
 
@@ -22,27 +22,38 @@ int tcp_main(int ac, char const **av)
 
   std::cout << "New client: " << clientSocket.getSockAddress() << std::endl;
 
-  sckcpp::Buffer bufferReceive;
+  // Send
 
-  bufferReceive.data = new char[255];
-  bufferReceive.len = 254;
-
-  std::string msg("Hello world!\n");
+  std::string msg("Hello from Server");
   sckcpp::Buffer buffer;
 
   buffer.data = (void *) msg.c_str();
   buffer.len = msg.size();
 
-  std::cout << clientSocket.send(buffer) << std::endl;
+  clientSocket.send(buffer);
 
-  std::cout << clientSocket.receive(bufferReceive) << std::endl;
+  // Receive
+  sckcpp::Buffer bufferReceive;
 
-  std::cout << "Receive: '" << (char *)bufferReceive.data << "'" << std::endl;
+  bufferReceive.data = new char[255];
+  bufferReceive.len = 254;
 
+  auto dataSize = clientSocket.receive(bufferReceive);
+
+  ((char *)bufferReceive.data)[dataSize] = '\0';
+
+  std::cout << "Server - From Client: '" << (char *)bufferReceive.data << "'" << std::endl;
+
+  return EXIT_SUCCESS;
+}
+
+int udp_server_main(int ac, char const **av)
+{
   return EXIT_SUCCESS;
 }
 
 int main(int ac, char const **av)
 {
-  return tcp_main(ac, av);
+  return tcp_server_main(ac, av);
+//  return udp_server_main(ac, av);
 }
