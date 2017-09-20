@@ -12,7 +12,7 @@ namespace sckcpp
 {
   const int DEFAULT_PORT = 0;
   const SocketDomain DEFAULT_SOCKET_DOMAIN = SocketDomain::IP;
-  const std::string DEFAULT_HOST = "";
+  const std::string DEFAULT_HOST;
 
   class SockAddress
   {
@@ -22,8 +22,9 @@ namespace sckcpp
     sockaddr_in mSockaddrIn;
 
   public:
-    SockAddress(std::string const &host, int port = sckcpp::DEFAULT_PORT, SocketDomain socketDomain = DEFAULT_SOCKET_DOMAIN);
-    SockAddress(int port);
+    explicit SockAddress(std::string const &host, int port = sckcpp::DEFAULT_PORT, SocketDomain socketDomain = DEFAULT_SOCKET_DOMAIN);
+
+    explicit SockAddress(int port);
     SockAddress();
     ~SockAddress() = default;
 
@@ -42,7 +43,9 @@ namespace sckcpp
       return (sockaddr *)&mSockaddrIn;
     }
 
-  private:
+    void updateAddressInfo();
+
+   private:
     in_addr_t resolveSockAddrInSAddr();
     void updateAddressInfo(sockaddr_in const &sockaddrIn);
 

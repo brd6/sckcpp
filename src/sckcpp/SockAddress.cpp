@@ -90,6 +90,14 @@ namespace sckcpp
       mPort = sockaddrIn.sin_port;
   }
 
+  void SockAddress::updateAddressInfo()
+  {
+    mHost = inet_ntoa((&mSockaddrIn)->sin_addr);
+
+    if (mPort <= 0)
+      mPort = mSockaddrIn.sin_port;
+  }
+
   void SockAddress::setHost(std::string const &host)
   {
     mHost = host;

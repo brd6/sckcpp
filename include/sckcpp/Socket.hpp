@@ -31,7 +31,8 @@ namespace sckcpp
        * @param sockAddress
        * @param backlog
        */
-      explicit Socket(SockAddress const &sockAddress, int backlog = sckcpp::DEFAULT_BACKLOG);
+      explicit Socket(SockAddress const &sockAddress,
+		      int backlog = sckcpp::DEFAULT_BACKLOG);
 
       /**
        * Socket initialisation
@@ -46,7 +47,8 @@ namespace sckcpp
       Socket();
 
       /**
-       * Accept a new connection on the socket and return the client socket when he's connected
+       * Accept a new connection on the socket and return the client
+       * socket when he's connected
        * @return Socket
        */
       void accept(Socket &clientSocket);
@@ -130,7 +132,9 @@ namespace sckcpp
        * @param flags
        * @return
        */
-      ssize_t send(SockAddress const &receiverAddress, Buffer const &buffer, int flags = 0);
+      ssize_t send(SockAddress const &receiverAddress,
+		   Buffer const &buffer,
+		   int flags = 0);
 
       /**
        * Receive data from sender's socket
@@ -138,7 +142,9 @@ namespace sckcpp
        * @param flags
        * @return
        */
-      ssize_t receive(SockAddress &senderAddress, Buffer &buffer, int flags = 0);
+      ssize_t receive(SockAddress &senderAddress,
+		      Buffer &buffer,
+		      int flags = 0);
 
       /**
        * Close the socket

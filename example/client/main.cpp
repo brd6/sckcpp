@@ -45,11 +45,25 @@ int tcp_client_main(int ac, char const **av)
 
 int udp_client_main(int ac, char const **av)
 {
+  sckcpp::udp::Socket udpSocket;
+
+  std::cout << "UDP socket created: " << udpSocket.getSockAddress() << std::endl;
+
+  sckcpp::SockAddress serverAddress(4242);
+  sckcpp::Buffer bufferSend;
+
+  auto strHello = std::string("Hello from Client");
+
+  bufferSend.data = (void *) strHello.c_str();
+  bufferSend.len = strHello.length();
+
+  udpSocket.send(serverAddress, bufferSend);
+
   return EXIT_SUCCESS;
 }
 
 int main(int ac, char const **av)
 {
-  return tcp_client_main(ac, av);
-//  return udp_client_main(ac, av);
+//  return tcp_client_main(ac, av);
+  return udp_client_main(ac, av);
 }

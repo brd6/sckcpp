@@ -11,7 +11,7 @@
 
 int tcp_server_main(int ac, char const **av)
 {
-  sckcpp::tcp::Socket tcpSocket(sckcpp::SockAddress(4242));
+  sckcpp::tcp::Socket tcpSocket(4242);
 
   std::cout << "TCP socket created: " << tcpSocket.getSockAddress() << std::endl;
   std::cout << "Waiting for connection..." << std::endl;
@@ -48,11 +48,25 @@ int tcp_server_main(int ac, char const **av)
 
 int udp_server_main(int ac, char const **av)
 {
+  sckcpp::udp::Socket udpSocket(4242);
+
+  std::cout << "UDP socket created: " << udpSocket.getSockAddress() << std::endl;
+
+  sckcpp::SockAddress clientAddress;
+  sckcpp::Buffer bufferReceive;
+
+  bufferReceive.data = new char[255];
+  bufferReceive.len = 254;
+
+  udpSocket.receive(clientAddress, bufferReceive);
+
+  std::cout << "Receive: '" << (char *)bufferReceive.data << "' from " << clientAddress << std::endl;
+
   return EXIT_SUCCESS;
 }
 
 int main(int ac, char const **av)
 {
-  return tcp_server_main(ac, av);
-//  return udp_server_main(ac, av);
+//  return tcp_server_main(ac, av);
+  return udp_server_main(ac, av);
 }

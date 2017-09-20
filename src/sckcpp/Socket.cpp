@@ -170,11 +170,14 @@ namespace sckcpp
     {
       socklen_t sockLen = sizeof(sockaddr_in);
 
-      return BaseSocket::receiveFrom(buffer.data,
+      auto revSize = BaseSocket::receiveFrom(buffer.data,
 				     buffer.len,
 				     flags,
 				     senderAddress,
 				     &sockLen);
+
+      senderAddress.updateAddressInfo();
+      return revSize;
     }
   }
 
