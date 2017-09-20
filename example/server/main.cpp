@@ -53,6 +53,8 @@ int udp_server_main(int ac, char const **av)
   std::cout << "UDP socket created: " << udpSocket.getSockAddress() << std::endl;
 
   sckcpp::SockAddress clientAddress;
+
+  // Receive
   sckcpp::Buffer bufferReceive;
 
   bufferReceive.data = new char[255];
@@ -60,7 +62,16 @@ int udp_server_main(int ac, char const **av)
 
   udpSocket.receive(clientAddress, bufferReceive);
 
-  std::cout << "Receive: '" << (char *)bufferReceive.data << "' from " << clientAddress << std::endl;
+  std::cout << "Server - Receive: '" << (char *)bufferReceive.data << "' from " << clientAddress << std::endl;
+
+  // Send
+  sckcpp::Buffer bufferSend;
+
+  auto strHello = std::string("Hello from Server");
+  bufferSend.data = (void *) strHello.c_str();
+  bufferSend.len = strHello.length();
+
+  udpSocket.send(clientAddress, bufferSend);
 
   return EXIT_SUCCESS;
 }
