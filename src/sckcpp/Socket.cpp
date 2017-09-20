@@ -98,4 +98,60 @@ namespace sckcpp
       return BaseSocket::receive(buffer.data, buffer.len, flags);
     }
   }
+
+  namespace udp
+  {
+
+    Socket::Socket(SockAddress const &sockAddress) :
+	    BaseSocket(SocketDomain::IP, SocketType::UDP, 0),
+	    mSockAddress(sockAddress),
+	    mCommunicationType(SocketCommunicationType::SERVER)
+    {
+      enableReuseAddr();
+
+      mSockAddress.setSockaddrIn(SocketDomain::IP);
+
+      bind(mSockAddress, sizeof(sockaddr_in));
+
+      initializeAddressPortIfNeeded();
+
+    }
+
+    Socket::Socket(int port) :
+    	Socket(SockAddress(port))
+    {
+
+    }
+
+    Socket::Socket() :
+	    BaseSocket(SocketDomain::IP, SocketType::UDP, 0),
+	    mCommunicationType(SocketCommunicationType::CLIENT)
+    {
+      enableReuseAddr();
+    }
+
+    SockAddress const &Socket::getSockAddress() const
+    {
+      return mSockAddress;
+    }
+
+    void Socket::close()
+    {
+      BaseSocket::close();
+    }
+
+    void Socket::initializeAddressPortIfNeeded()
+    {
+      if (mSockAddress.getPort() > 0)
+	return;
+
+      sockaddr_in sin{};
+      int addrlen = sizeof(sin);
+
+      if(getsockname(getFd(), (sockaddr *)&sin,
+		     (socklen_t *) &addrlen) == 0)
+	mSockAddress.setPort(ntohs(sin.sin_port));
+    }
+  }
+
 }

@@ -18,7 +18,7 @@ namespace sckcpp
   namespace tcp
   {
     class Socket :
-      private BaseSocket
+	    private BaseSocket
     {
     private:
       SockAddress mSockAddress;
@@ -94,11 +94,62 @@ namespace sckcpp
 
   namespace udp
   {
-    class Socket
+    class Socket :
+	    private BaseSocket
     {
-//    public:
-//      Socket(std::string host, int port);
-//      ~Socket();
+     private:
+      SockAddress mSockAddress;
+      SocketCommunicationType mCommunicationType;
+
+    public:
+      /**
+       * Socket initialisation
+       * @param sockAddress
+       */
+      explicit Socket(SockAddress const &sockAddress);
+
+      /**
+       * Socket initialisation
+       * @param port
+       */
+      explicit Socket(int port);
+
+      /**
+       * Socket initialisation
+       */
+      Socket();
+
+      /**
+       * eturn the SockAddress of this socket
+       * @return
+       */
+      SockAddress const &getSockAddress() const;
+
+      /**
+       * Send data to the socket
+       * @param buffer
+       * @param flags
+       * @return
+       */
+      ssize_t send(Buffer const &buffer, int flags = 0);
+
+      /**
+       * Receive data from sender's socket
+       * @param buf
+       * @param len
+       * @param flags
+       * @return
+       */
+      ssize_t receive(Buffer &buffer, int flags = 0);
+
+      /**
+       * Close the socket
+       */
+      void close() override ;
+
+     private:
+      void initializeAddressPortIfNeeded();
+
     };
   }
 }

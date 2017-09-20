@@ -23,7 +23,6 @@ int tcp_server_main(int ac, char const **av)
   std::cout << "New client: " << clientSocket.getSockAddress() << std::endl;
 
   // Send
-
   std::string msg("Hello from Server");
   sckcpp::Buffer buffer;
 
