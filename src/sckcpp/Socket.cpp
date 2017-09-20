@@ -152,6 +152,30 @@ namespace sckcpp
 		     (socklen_t *) &addrlen) == 0)
 	mSockAddress.setPort(ntohs(sin.sin_port));
     }
+
+    ssize_t Socket::send(SockAddress const &receiverAddress,
+			 Buffer const &buffer,
+			 int flags)
+    {
+      return BaseSocket::sendTo(buffer.data,
+				buffer.len,
+				flags,
+				receiverAddress,
+				sizeof(sockaddr_in));
+    }
+
+    ssize_t Socket::receive(SockAddress &senderAddress,
+			    Buffer &buffer,
+			    int flags)
+    {
+      socklen_t sockLen = sizeof(sockaddr_in);
+
+      return BaseSocket::receiveFrom(buffer.data,
+				     buffer.len,
+				     flags,
+				     senderAddress,
+				     &sockLen);
+    }
   }
 
 }

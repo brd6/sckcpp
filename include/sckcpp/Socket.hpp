@@ -73,8 +73,7 @@ namespace sckcpp
 
       /**
        * Receive data from sender's socket
-       * @param buf
-       * @param len
+       * @param buffer
        * @param flags
        * @return
        */
@@ -131,16 +130,15 @@ namespace sckcpp
        * @param flags
        * @return
        */
-      ssize_t send(Buffer const &buffer, int flags = 0);
+      ssize_t send(SockAddress const &receiverAddress, Buffer const &buffer, int flags = 0);
 
       /**
        * Receive data from sender's socket
-       * @param buf
-       * @param len
+       * @param buffer
        * @param flags
        * @return
        */
-      ssize_t receive(Buffer &buffer, int flags = 0);
+      ssize_t receive(SockAddress &senderAddress, Buffer &buffer, int flags = 0);
 
       /**
        * Close the socket
