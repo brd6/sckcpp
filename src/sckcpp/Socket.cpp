@@ -48,14 +48,14 @@ namespace sckcpp
       sockaddr_in sin;
       int addrlen = sizeof(sin);
 
-      if(getsockname(getFd(), (struct sockaddr *)&sin,
+      if(getsockname(getFd(), (sockaddr *)&sin,
                      (socklen_t *) &addrlen) == 0)
         mSockAddress.setPort(ntohs(sin.sin_port));
     }
 
     Socket Socket::accept()
     {
-      sockaddr addr;
+      sockaddr addr{};
       socklen_t addrlen;
 
       if (mCommunicationType == SocketCommunicationType::UNKNOWN)
@@ -65,7 +65,7 @@ namespace sckcpp
       }
 
       Socket clientSocket = BaseSocket::accept(&addr, &addrlen);
-      struct sockaddr_in *sockaddrIn = (struct sockaddr_in*)&addr;
+      auto *sockaddrIn = (sockaddr_in*)&addr;
       clientSocket.mSockAddress.setSockaddrIn(*sockaddrIn);
 
       return clientSocket;
