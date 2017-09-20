@@ -24,7 +24,7 @@ int tcp_main(int ac, char const **av)
 
   sckcpp::Buffer bufferReceive;
 
-  bufferReceive.data = malloc(255);
+  bufferReceive.data = new char[255];
   bufferReceive.len = 254;
 
   std::string msg("Hello world!\n");

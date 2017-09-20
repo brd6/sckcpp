@@ -31,21 +31,19 @@ namespace sckcpp
        * @param sockAddress
        * @param backlog
        */
-      Socket(SockAddress const &sockAddress, int backlog = sckcpp::DEFAULT_BACKLOG);
+      explicit Socket(SockAddress const &sockAddress, int backlog = sckcpp::DEFAULT_BACKLOG);
 
       /**
        * Socket initialisation
        * @param port
        * @param backlog
        */
-      Socket(int port, int backlog = sckcpp::DEFAULT_BACKLOG);
+      explicit Socket(int port, int backlog = sckcpp::DEFAULT_BACKLOG);
 
       /**
        * Socket initialisation
        */
       Socket();
-
-      ~Socket() = default;
 
       /**
        * Accept a new connection on the socket and return the client socket when he's connected
