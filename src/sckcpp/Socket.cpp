@@ -3,7 +3,6 @@
 //
 
 #include <sckcpp/Socket.hpp>
-#include <zconf.h>
 
 namespace sckcpp
 {

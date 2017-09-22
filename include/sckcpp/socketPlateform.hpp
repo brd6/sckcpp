@@ -5,25 +5,14 @@
 #ifndef _SOCKETPLATEFORM_H_
 #define _SOCKETPLATEFORM_H_
 
-enum SocketType
-{
-  TCP = SOCK_STREAM,
-  UDP = SOCK_DGRAM
-};
+#if _WIN32
 
-enum SocketDomain
-{
-  IP = AF_INET,
-  IPV6 = AF_INET6,
-  LOCAL_UNIX = AF_UNIX,
-  LOCAL = AF_LOCAL
-};
+#include <sckcpp/win/socketPlateform.hpp>
 
-enum SocketCommunicationType
-{
-  SERVER,
-  CLIENT,
-  UNKNOWN
-};
+#else
+
+#include <sckcpp/unix/socketPlateform.hpp>
+
+#endif
 
 #endif /* !_SOCKETPLATEFORM_H_ */

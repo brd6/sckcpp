@@ -2,10 +2,9 @@
 // Created by brd6 on 17/09/17.
 //
 
-#include <sckcpp/SockAddress.hpp>
-#include <cstring>
+#include <sckcpp/unix/SockAddress.hpp>
 #include <sckcpp/SocketException.hpp>
-#include <iostream>
+#include <cstring>
 
 namespace sckcpp
 {
@@ -55,7 +54,7 @@ namespace sckcpp
       updateAddressInfo(mSockaddrIn);
   }
 
-  in_addr_t SockAddress::resolveSockAddrInSAddr()
+  unsigned long SockAddress::resolveSockAddrInSAddr()
   {
     if (mHost.empty())
       return htonl(INADDR_ANY);

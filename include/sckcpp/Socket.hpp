@@ -6,7 +6,7 @@
 #define _SOCKET_H_
 
 #include <string>
-#include <sckcpp/unix/BaseSocket.hpp>
+#include <sckcpp/BaseSocket.hpp>
 #include <sckcpp/SockAddress.hpp>
 #include <sckcpp/Buffer.hpp>
 #include <iostream>

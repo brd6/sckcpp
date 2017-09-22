@@ -12,18 +12,18 @@
 #pragma comment(lib, "ws2_32.lib")
 
 #include <sckcpp/socketPlateform.hpp>
-#include <sckcpp/IBaseSocket.hpp>
+
+typedef int socklen_t;
 
 namespace sckcpp
 {
-  class BaseSocket :
-      public IBaseSocket
+  class BaseSocket
   {
   public:
     const int INVALID_SOCK_FD = -1;
 
   protected:
-    int mFd;
+    SOCKET mFd;
 
   protected:
     BaseSocket();
