@@ -4,7 +4,7 @@
 
 #include <unistd.h>
 #include <sys/socket.h>
-#include <sckcpp/BaseSocket.hpp>
+#include <sckcpp/unix/BaseSocket.hpp>
 #include <sckcpp/SocketException.hpp>
 #include <cstring>
 #include <iostream>

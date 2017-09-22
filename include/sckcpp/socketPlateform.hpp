@@ -5,21 +5,6 @@
 #ifndef _SOCKETPLATEFORM_H_
 #define _SOCKETPLATEFORM_H_
 
-#if _WIN32
-
-#include <winsock2.h>
-#pragma comment(lib, "wsock32.lib")
-
-#else
-
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <fcntl.h>
-
-#endif
-
 enum SocketType
 {
   TCP = SOCK_STREAM,
