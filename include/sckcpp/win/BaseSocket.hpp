@@ -8,11 +8,9 @@
 #ifndef _WIN_BASESOCKET_H_
 # define _WIN_BASESOCKET_H_
 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <fcntl.h>
+#include <winsock2.h>
+#pragma comment(lib, "ws2_32.lib")
+
 #include <sckcpp/socketPlateform.hpp>
 #include <sckcpp/IBaseSocket.hpp>
 
