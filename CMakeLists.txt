@@ -49,11 +49,11 @@ add_library(${PROJECT_NAME} ${SOURCE_FILES})
 add_subdirectory(example/server)
 add_subdirectory(example/client)
 
-IF(WIN32)
-    target_link_libraries(${PROJECT_NAME} wsock32 ws2_32)
-ENDIF()
-
 # Install lib
 install(TARGETS ${PROJECT_NAME} DESTINATION .)
 
 install(DIRECTORY ${B2GE_INCLUDE} DESTINATION .)
+
+IF(WIN32)
+    target_link_libraries(${PROJECT_NAME} wsock32 ws2_32)
+ENDIF()

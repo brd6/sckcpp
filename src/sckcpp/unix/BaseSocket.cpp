@@ -36,7 +36,7 @@ namespace sckcpp
     if (mFd == INVALID_SOCK_FD)
       return;
 
-    ::close(mFd);
+    ::closesocket(mFd);
     mFd = INVALID_SOCK_FD;
   }
 

@@ -29,10 +29,10 @@ namespace sckcpp
 
     if (mFd < 0)
       throw SocketException(std::string("Unable to initialize the socket: ") +
-                                std::strerror(errno));
+                                std::to_string(WSAGetLastError()));
   }
 
-  int BaseSocket::getFd() const
+  SOCKET BaseSocket::getFd() const
   {
     return mFd;
   }
@@ -50,19 +50,25 @@ namespace sckcpp
   void BaseSocket::bind(const sockaddr *addr, socklen_t addrlen)
   {
     if (::bind(mFd, addr, addrlen) < 0)
-      throw SocketException(std::string("address binding failed: ") + std::strerror(errno));
+      throw SocketException(std::string("address binding failed: ") + std::to_string(WSAGetLastError()));
   }
 
   void BaseSocket::connect(const sockaddr *addr, socklen_t addrlen)
   {
-    if (::connect(mFd, addr, addrlen) < 0)
-      throw SocketException(std::string("socket connection failed: ") + std::strerror(errno));
+    sockaddr_in server;
+
+    server.sin_addr.s_addr = inet_addr("127.0.0.1");
+    server.sin_family = AF_INET;
+    server.sin_port = htons(4242);
+
+    if (::connect(mFd, (struct sockaddr *)&server, sizeof(server)) < 0)
+      throw SocketException(std::string("socket connection failed: ") + std::to_string(WSAGetLastError()));
   }
 
   void BaseSocket::listen(int backlog)
   {
     if (::listen(mFd, backlog) < 0)
-      throw SocketException(std::string("listen setting failed: ") + std::strerror(errno));
+      throw SocketException(std::string("listen setting failed: ") + std::to_string(WSAGetLastError()));
   }
 
   void BaseSocket::accept(BaseSocket &clientSocket, sockaddr *addr, socklen_t *addrlen)
@@ -70,7 +76,7 @@ namespace sckcpp
     clientSocket.mFd = ::accept(mFd, addr, addrlen);
 
     if (clientSocket.mFd < 0)
-      throw SocketException(std::string("accept failed: ") + std::strerror(errno));
+      throw SocketException(std::string("accept failed: ") + std::to_string(WSAGetLastError()));
   }
 
   void BaseSocket::enableReuseAddr()
@@ -82,7 +88,7 @@ namespace sckcpp
     ret = setsockopt(mFd, SOL_SOCKET, SO_REUSEADDR, &optVal, sizeof(optVal));
 
     if (ret < 0)
-      throw SocketException(std::string("Unable to set re use addr: ") + std::strerror(errno));
+      throw SocketException(std::string("Unable to set re use addr: ") + std::to_string(WSAGetLastError()));
   }
 
   ssize_t BaseSocket::send(const void *buf, size_t len, int flags)

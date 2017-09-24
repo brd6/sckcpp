@@ -78,6 +78,6 @@ int udp_server_main(int ac, char const **av)
 
 int main(int ac, char const **av)
 {
-//  return tcp_server_main(ac, av);
-  return udp_server_main(ac, av);
+  return tcp_server_main(ac, av);
+//  return udp_server_main(ac, av);
 }

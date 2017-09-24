@@ -15,7 +15,9 @@ int tcp_client_main(int ac, char const **av)
 
   std::cout << "TCP socket created: " << tcpSocket.getSockAddress() << std::endl;
 
-  tcpSocket.connect(sckcpp::SockAddress("localhost", 4242));
+  tcpSocket.connect(sckcpp::SockAddress(4242));
+
+  std::cout << "OKOKO" << std::endl;
 
 
   // Send
@@ -77,6 +79,6 @@ int udp_client_main(int ac, char const **av)
 
 int main(int ac, char const **av)
 {
-//  return tcp_client_main(ac, av);
-  return udp_client_main(ac, av);
+  return tcp_client_main(ac, av);
+//  return udp_client_main(ac, av);
 }

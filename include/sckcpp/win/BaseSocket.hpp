@@ -9,7 +9,7 @@
 # define _WIN_BASESOCKET_H_
 
 #include <winsock2.h>
-#pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib,"ws2_32.lib")
 
 #include <sckcpp/socketPlateform.hpp>
 
@@ -36,7 +36,7 @@ namespace sckcpp
      * Get the socket file descriptor
      * @return
      */
-    int getFd() const;
+    SOCKET getFd() const;
 
     /**
      * Close the socket
