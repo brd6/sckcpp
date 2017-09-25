@@ -17,9 +17,6 @@ int tcp_client_main(int ac, char const **av)
 
   tcpSocket.connect(sckcpp::SockAddress(4242));
 
-  std::cout << "OKOKO" << std::endl;
-
-
   // Send
   sckcpp::Buffer bufferSend;
 
@@ -69,7 +66,9 @@ int udp_client_main(int ac, char const **av)
   bufferReceive.data = new char[255];
   bufferReceive.len = 254;
 
-  udpSocket.receive(serverAddress, bufferReceive);
+  auto dataSize = udpSocket.receive(serverAddress, bufferReceive);
+
+  ((char *)bufferReceive.data)[dataSize] = '\0';
 
   std::cout << "Client - Receive: '" << (char *)bufferReceive.data << "' from " << serverAddress << std::endl;
 
@@ -79,6 +78,6 @@ int udp_client_main(int ac, char const **av)
 
 int main(int ac, char const **av)
 {
-  return tcp_client_main(ac, av);
-//  return udp_client_main(ac, av);
+//  return tcp_client_main(ac, av);
+  return udp_client_main(ac, av);
 }

@@ -60,7 +60,9 @@ int udp_server_main(int ac, char const **av)
   bufferReceive.data = new char[255];
   bufferReceive.len = 254;
 
-  udpSocket.receive(clientAddress, bufferReceive);
+  auto dataSize = udpSocket.receive(clientAddress, bufferReceive);
+
+  ((char *)bufferReceive.data)[dataSize] = '\0';
 
   std::cout << "Server - Receive: '" << (char *)bufferReceive.data << "' from " << clientAddress << std::endl;
 
@@ -78,6 +80,6 @@ int udp_server_main(int ac, char const **av)
 
 int main(int ac, char const **av)
 {
-  return tcp_server_main(ac, av);
-//  return udp_server_main(ac, av);
+//  return tcp_server_main(ac, av);
+  return udp_server_main(ac, av);
 }

@@ -13,7 +13,7 @@ namespace sckcpp
 {
   const int DEFAULT_PORT = 0;
   const SocketDomain DEFAULT_SOCKET_DOMAIN = SocketDomain::IP;
-  const std::string DEFAULT_HOST;
+  const std::string DEFAULT_HOST{};
 
   class SockAddress
   {
@@ -39,9 +39,14 @@ namespace sckcpp
     void setSockaddrIn(SocketDomain = DEFAULT_SOCKET_DOMAIN);
     void setSockaddrIn(sockaddr_in const &sockaddrIn);
 
+    operator const sockaddr*() const
+    {
+      return (const sockaddr *)(&mSockaddrIn);
+    }
+
     operator sockaddr*() const
     {
-      return (sockaddr *)&mSockaddrIn;
+      return (sockaddr *)(&mSockaddrIn);
     }
 
     void updateAddressInfo();

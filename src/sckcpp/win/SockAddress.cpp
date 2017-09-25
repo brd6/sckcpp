@@ -57,7 +57,7 @@ namespace sckcpp
   u_long SockAddress::resolveSockAddrInSAddr()
   {
     if (mHost.empty())
-      return htonl(INADDR_ANY);
+      return inet_addr("127.0.0.1");
 
     hostent *host;
 

@@ -55,13 +55,7 @@ namespace sckcpp
 
   void BaseSocket::connect(const sockaddr *addr, socklen_t addrlen)
   {
-    sockaddr_in server;
-
-    server.sin_addr.s_addr = inet_addr("127.0.0.1");
-    server.sin_family = AF_INET;
-    server.sin_port = htons(4242);
-
-    if (::connect(mFd, (struct sockaddr *)&server, sizeof(server)) < 0)
+    if (::connect(mFd, addr, addrlen) < 0)
       throw SocketException(std::string("socket connection failed: ") + std::to_string(WSAGetLastError()));
   }
 
