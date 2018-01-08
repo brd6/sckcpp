@@ -5,6 +5,14 @@
 #ifndef _UNIX_SOCKETPLATEFORM_H_
 #define _UNIX_SOCKETPLATEFORM_H_
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+
 enum SocketType
 {
   TCP = SOCK_STREAM,

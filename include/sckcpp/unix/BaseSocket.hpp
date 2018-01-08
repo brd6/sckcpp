@@ -11,7 +11,6 @@
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <sckcpp/socketPlateform.hpp>
-#include <sckcpp/IBaseSocket.hpp>
 
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
@@ -23,8 +22,7 @@ typedef struct sockaddr SOCKADDR;
 
 namespace sckcpp
 {
-  class BaseSocket :
-    public IBaseSocket
+  class BaseSocket
   {
    public:
     const int INVALID_SOCK_FD = -1;
